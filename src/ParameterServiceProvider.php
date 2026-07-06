@@ -36,10 +36,19 @@ class ParameterServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Carga automática de migraciones al ejecutar 'php artisan migrate' en el proyecto principal
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         if ($this->app->runningInConsole()) {
+            // Publicar el archivo de configuración
             $this->publishes([
                 __DIR__ . '/../config/parameters.php' => config_path('parameters.php'),
             ], 'parameters-config');
+
+            // Opcional: Permitir al usuario publicar las migraciones físicas en su proyecto si desea editarlas
+            $this->publishes([
+                __DIR__ . '/../database/migrations' => database_path('migrations'),
+            ], 'parameters-migrations');
         }
     }
 }
