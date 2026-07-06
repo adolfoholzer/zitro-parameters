@@ -1,5 +1,9 @@
 # Zitro Parameters Package
 
+![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4)
+![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 Paquete de gestión de parámetros dinámicos para Laravel que permite almacenar configuraciones tipadas tanto a nivel global del sistema como asociadas de forma polimórfica a cualquier modelo de la aplicación.
 
 Diseñado para ser simple, extensible, desacoplado y fácilmente testeable.
