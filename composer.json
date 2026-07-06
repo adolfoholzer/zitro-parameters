@@ -1,0 +1,41 @@
+{
+    "name": "adolfoholzer/zitro-parameters",
+    "description": "Manejo de parámetros adaptables a cualquier modelo en Laravel",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zitro\\Parameters\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adolfo Holzer"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "Zitro\\Parameters\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zitro\\Parameters\\ParameterServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "pestphp/pest": "^4.7",
+        "orchestra/testbench": "^11.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
