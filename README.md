@@ -43,7 +43,7 @@ php artisan migrate
 Si deseas personalizar el nombre de la tabla o el comportamiento de la caché:
 
 ```bash
-php artisan vendor:publish --tag="zitro-parametros-config"
+php artisan vendor:publish --tag="zitro-parameters-config"
 ```
 
 ---
@@ -53,7 +53,7 @@ php artisan vendor:publish --tag="zitro-parametros-config"
 Archivo publicado:
 
 ```php
-config/parametros.php
+config/parameters.php
 ```
 
 Configuración por defecto:
@@ -61,9 +61,9 @@ Configuración por defecto:
 ```php
 return [
 
-    'table_name' => 'parametros',
+    'table_name' => 'parameters',
 
-    'use_cache' => env('ZITRO_PARAMETROS_CACHE', true),
+    'use_cache' => env('ZITRO_PARAMETERS_CACHE', true),
 
     'cache_ttl' => 3600,
 
@@ -88,8 +88,8 @@ Todos los valores son almacenados tipados y recuperados automáticamente con su 
 Para administrar configuraciones globales utiliza la Facade:
 
 ```php
-use ZitroParametros;
-use App\Zitro\Parametros\Enums\TipoParametro;
+use ZitroParameters;
+use Zitro\Parameters\Enums\ParameterType;
 ```
 
 ---
@@ -97,23 +97,23 @@ use App\Zitro\Parametros\Enums\TipoParametro;
 ## Guardar Parámetros
 
 ```php
-ZitroParametros::set(
+ZitroParameters::set(
     'site_iva',
     22.5,
-    TipoParametro::FLOAT,
+    ParameterType::FLOAT,
     'IVA general del comercio'
 );
 
-ZitroParametros::set(
+ZitroParameters::set(
     'maintenance_mode',
     true,
-    TipoParametro::BOOLEAN
+    ParameterType::BOOLEAN
 );
 
-ZitroParametros::set(
+ZitroParameters::set(
     'allowed_countries',
     ['UY', 'AR', 'BR'],
-    TipoParametro::JSON
+    ParameterType::JSON
 );
 ```
 
@@ -124,13 +124,13 @@ ZitroParametros::set(
 Los valores son retornados automáticamente con su tipo correspondiente.
 
 ```php
-$iva = ZitroParametros::get('site_iva');
+$iva = ZitroParameters::get('site_iva');
 // float(22.5)
 
-$maintenance = ZitroParametros::get('maintenance_mode');
+$maintenance = ZitroParameters::get('maintenance_mode');
 // bool(true)
 
-$countries = ZitroParametros::get('allowed_countries');
+$countries = ZitroParameters::get('allowed_countries');
 // ['UY', 'AR', 'BR']
 ```
 
@@ -139,7 +139,7 @@ $countries = ZitroParametros::get('allowed_countries');
 ## Valores por Defecto
 
 ```php
-$logo = ZitroParametros::get(
+$logo = ZitroParameters::get(
     'site_logo',
     'default-logo.png'
 );
@@ -150,7 +150,7 @@ $logo = ZitroParametros::get(
 ## Eliminar Parámetros
 
 ```php
-ZitroParametros::forget('site_iva');
+ZitroParameters::forget('site_iva');
 ```
 
 La caché asociada será invalidada automáticamente.
@@ -179,7 +179,7 @@ Agregar el trait `HasParameters`:
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Zitro\Parametros\Traits\HasParameters;
+use Zitro\Parameters\Traits\HasParameters;
 
 class Team extends Model
 {
@@ -192,21 +192,21 @@ class Team extends Model
 ## Guardar Parámetros
 
 ```php
-use App\Zitro\Parametros\Enums\TipoParametro;
+use Zitro\Parameters\Enums\ParameterType;
 
 $team = Team::find($id);
 
-$team->setParametro(
+$team->setParameter(
     'max_users',
     15,
-    TipoParametro::INT,
+    ParameterType::INT,
     'Límite de usuarios contratados'
 );
 
-$team->setParametro(
+$team->setParameter(
     'modules_enabled',
     ['crm', 'billing'],
-    TipoParametro::JSON
+    ParameterType::JSON
 );
 ```
 
@@ -215,10 +215,10 @@ $team->setParametro(
 ## Obtener Parámetros
 
 ```php
-$maxUsers = $team->getParametro('max_users');
+$maxUsers = $team->getParameter('max_users');
 // int(15)
 
-$modules = $team->getParametro('modules_enabled');
+$modules = $team->getParameter('modules_enabled');
 // ['crm', 'billing']
 ```
 
@@ -227,7 +227,7 @@ $modules = $team->getParametro('modules_enabled');
 ## Eliminar Parámetros
 
 ```php
-$team->forgetParametro('max_users');
+$team->forgetParameter('max_users');
 ```
 
 ---
@@ -268,30 +268,6 @@ Configuración:
 
 ---
 
-# 🏗️ Arquitectura del Paquete
-
-```text
-app/Zitro/Parametros/
-├── config/
-│   └── parametros.php
-├── database/
-│   └── migrations/
-├── Enums/
-│   └── TipoParametro.php
-├── Facades/
-│   └── ZitroParametros.php
-├── Models/
-│   └── Parametro.php
-├── Services/
-│   └── ParametroService.php
-├── Traits/
-│   └── HasParameters.php
-├── tests/
-└── ParametrosServiceProvider.php
-```
-
----
-
 # 🔬 Testing
 
 El paquete incluye pruebas unitarias e integración utilizando Pest.
@@ -305,5 +281,5 @@ vendor/bin/pest
 Ejecutar únicamente las pruebas del paquete:
 
 ```bash
-vendor/bin/pest app/Zitro/Parametros/tests
+vendor/bin/pest Zitro/Parameter/tests
 ```
