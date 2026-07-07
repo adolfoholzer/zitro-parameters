@@ -43,7 +43,7 @@ php artisan migrate
 Si deseas personalizar el nombre de la tabla o el comportamiento de la caché:
 
 ```bash
-php artisan vendor:publish --tag="zitro-parameters-config"
+php artisan vendor:publish --tag="parameters-config"
 ```
 
 ---
