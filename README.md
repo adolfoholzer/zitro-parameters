@@ -281,5 +281,5 @@ vendor/bin/pest
 Ejecutar únicamente las pruebas del paquete:
 
 ```bash
-vendor/bin/pest Zitro/Parameter/tests
+vendor/bin/pest Zitro/Parameters/tests
 ```
